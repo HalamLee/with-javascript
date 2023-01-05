@@ -101,9 +101,9 @@ article.dataset.indexNumber = "12314"
 페이지네이션을 구현하기 위한 설정값
 
 - currentPage: 현재 페이지
-- totalCount: 총 데이터의 갯수
-- pageCount: 화면에 나타날 페이지 갯수
-- limit: 한 페이지 당 나타낼 데이터의 갯수
+- totalCount: 총 데이터의 개수
+- pageCount: 화면에 나타날 페이지 개수
+- limit: 한 페이지 당 나타낼 데이터의 개수
 
 ![](https://user-images.githubusercontent.com/16531837/145595161-ceb09871-bfe2-4a33-9e65-b53b0bd9d89f.png)
 
@@ -114,7 +114,7 @@ article.dataset.indexNumber = "12314"
 - pageCount: 5
 - limit: 5
 
-#### 총 페이지 갯수 계산하기
+#### 총 페이지 개수 계산하기
 
 ```js
 let totalPage = Math.ceil(totalCount / limit);
