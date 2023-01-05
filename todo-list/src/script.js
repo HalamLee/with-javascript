@@ -68,6 +68,7 @@
       completed: false,
       // id는 자동으로 생성됨
     };
+
     fetch(API_URL, {
       method: 'POST',
       headers: {
@@ -101,6 +102,55 @@
       .catch((error) => console.error(error));
   };
 
+  const changeEditMode = (e) => {
+    const $item = e.target.closest('.item');
+    const $label = $item.querySelector('label');
+    const $editInput = $item.querySelector('input[type="text"]');
+    const $contentButtons = $item.querySelector('.content_buttons');
+    const $editButtons = $item.querySelector('.edit_buttons');
+    const value = $editInput.value;
+
+    if (e.target.className === 'todo_edit_button') {
+      $label.style.display = 'none';
+      $editInput.style.display = 'block';
+      $contentButtons.style.display = 'none';
+      $editButtons.style.display = 'block';
+
+      // focus 커서를 맨 뒤로 가게 하기 위함
+      $editInput.focus();
+      $editInput.value = '';
+      $editInput.value = value;
+    }
+
+    if (e.target.className === 'todo_edit_cancel_button') {
+      $label.style.display = 'block';
+      $editInput.style.display = 'none';
+      $contentButtons.style.display = 'block';
+      $editButtons.style.display = 'none';
+
+      // 작성 취소 시 입력했던 내용 초기화
+      $editInput.value = $label.innerText;
+    }
+  };
+
+  const editTodo = (e) => {
+    if (e.target.className !== 'todo_edit_confirm_button') return;
+    const $item = e.target.closest('.item');
+    const id = $item.dataset.id;
+    const $editInput = $item.querySelector('input[type="text"]');
+    const content = $editInput.value;
+
+    fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    })
+      .then(getTodos)
+      .catch((error) => console.error(error));
+  };
+
   const init = () => {
     // 초기 HTML 문서를 완전히 불러오고 분석했을 때 getTodos()를 실행
     window.addEventListener('DOMContentLoaded', () => {
@@ -108,6 +158,8 @@
     });
     $form.addEventListener('submit', addTodo);
     $todos.addEventListener('click', toggleTodo);
+    $todos.addEventListener('click', changeEditMode);
+    $todos.addEventListener('click', editTodo);
   };
   init();
 })();
