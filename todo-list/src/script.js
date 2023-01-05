@@ -151,6 +151,16 @@
       .catch((error) => console.error(error));
   };
 
+  const removeTodo = (e) => {
+    if (e.target.className !== 'todo_remove_button') return;
+    const $item = e.target.closest('.item');
+    const id = $item.dataset.id;
+
+    fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+      .then(getTodos)
+      .catch((error) => console.error(error));
+  };
+
   const init = () => {
     // 초기 HTML 문서를 완전히 불러오고 분석했을 때 getTodos()를 실행
     window.addEventListener('DOMContentLoaded', () => {
@@ -160,6 +170,7 @@
     $todos.addEventListener('click', toggleTodo);
     $todos.addEventListener('click', changeEditMode);
     $todos.addEventListener('click', editTodo);
+    $todos.addEventListener('click', removeTodo);
   };
   init();
 })();
