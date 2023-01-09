@@ -1,3 +1,8 @@
+body.scroll_lock {
+  overflow: hidden;
+  height: 100%;
+}
+
 button {
   border: 0;
   outline: none;
@@ -33,6 +38,10 @@ button {
   background-color: rgb(0 0 0 / 50%);
   height: 100%;
   overflow: hidden;
+}
+
+.modal.show {
+  display: block;
 }
 
 .modal_wrap {
