@@ -57,7 +57,7 @@
       console.error(error);
     } finally {
       // 로딩 엘리먼트를 사라지게 함
-      HideLoader();
+      hideLoader();
     }
   };
 
