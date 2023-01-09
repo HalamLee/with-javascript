@@ -13,12 +13,21 @@
 
       this.totalItems = this.items.length; // 5
       this.current = 0;
+      this.isMoving = false;
     }
 
     initCarousel() {
+      this.isMoving = false;
       this.items[0].classList.add('active');
       this.items[1].classList.add('next');
       this.items[this.totalItems - 1].classList.add('prev');
+    }
+
+    disabledInteraction() {
+      this.isMoving = true;
+      setTimeout(() => {
+        this.isMoving = false;
+      }, 500);
     }
 
     setEventListener() {
@@ -39,6 +48,9 @@
     }
 
     moveCarouselTo() {
+      if (this.isMoving) return;
+      this.disabledInteraction();
+
       let prev = this.current - 1;
       let next = this.current + 1;
 
@@ -62,6 +74,7 @@
     }
 
     moveNext() {
+      if (this.isMoving) return;
       if (this.current === this.totalItems - 1) {
         this.current = 0;
       } else {
@@ -71,6 +84,7 @@
     }
 
     movePrev() {
+      if (this.isMoving) return;
       if (this.current === 0) {
         this.current = this.totalItems - 1;
       } else {
